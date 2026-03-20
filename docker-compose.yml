@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  database:
+    image: postgres
+    container_name: database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker123
+      - POSTGRES_DB=orders
+    volumes:
+      - pgdata:/data/postgres
+
+  database_tests:
+    image: postgres
+    container_name: database_test
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=tests
+      - POSTGRES_PASSWORD=test123
+      - POSTGRES_DB=orders_test
+    volumes:
+      - pgdata:/data/postgres_tests
+
+volumes:
+  pgdata:
+    driver: local
